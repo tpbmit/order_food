@@ -71,7 +71,7 @@ services:
     restart: on-failure
 
   outlet:
-    build: .
+    build: ./of_outlet
     image: albertrandi72/of_outlet
     container_name: outlet
     restart: on-failure
@@ -90,3 +90,24 @@ services:
       - ./tmp/db_outlet:/var/lib/mysql
     ports:
       - "3416:3306"
+
+  menu:
+    build: ./of_outlet
+    image: albertrandi72/of_menu
+    container_name: menu
+    restart: on-failure
+    volumes:
+      - "./of_menu:/var/www/html"
+    ports:
+      - "1502:80"
+
+  menu-db:
+    image: mysql:5
+    container_name: db_menu
+    environment:
+      - MYSQL_DATABASE=menu
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./tmp/db_menu:/var/lib/mysql
+    ports:
+      - "3426:3306"
