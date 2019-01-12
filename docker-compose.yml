@@ -69,3 +69,24 @@ services:
     ports:
       - "1337:1337"
     restart: on-failure
+
+  outlet:
+    build: .
+    image: albertrandi72/of_outlet
+    container_name: outlet
+    restart: on-failure
+    volumes:
+      - "./of_outlet:/var/www/html"
+    ports:
+      - "1501:80"
+
+  outlet-db:
+    image: mysql:5
+    container_name: db_outlet
+    environment:
+      - MYSQL_DATABASE=outlet
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./tmp/db_outlet:/var/lib/mysql
+    ports:
+      - "3416:3306"
