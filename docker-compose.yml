@@ -69,3 +69,23 @@ services:
     ports:
       - "1337:1337"
     restart: on-failure
+  of_user:
+    build: ./of_user
+    image: tpbmit/of_user
+    container_name: of_user
+    restart: on-failure
+    volumes: 
+      - ./of_user:/var/www/html
+    ports:
+      - "8100:80"
+  of_user-db:
+    image: mysql:5
+    container_name: db_user
+    environment:
+      - MYSQL_DATABASE=user
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./tmp/mysql_of_user:/var/lib/mysql
+    ports:
+      - "3406:3306"
+
