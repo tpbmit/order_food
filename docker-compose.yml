@@ -111,3 +111,24 @@ services:
       - ./tmp/db_menu:/var/lib/mysql
     ports:
       - "3426:3306"
+
+  order:
+    build: ./of_order
+    image: albertrandi72/of_order
+    container_name: order
+    restart: on-failure
+    volumes:
+      - "./of_order:/var/www/html"
+    ports:
+      - "1503:80"
+
+  order-db:
+    image: mysql:5
+    container_name: db_order
+    environment:
+      - MYSQL_DATABASE=order
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./tmp/db_menu:/var/lib/mysql
+    ports:
+      - "3426:3306"
