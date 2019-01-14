@@ -77,7 +77,7 @@ services:
     volumes: 
       - ./of_user:/var/www/html
     ports:
-      - "8100:80"
+      - "1500:80"
   of_user-db:
     image: mysql:5
     container_name: db_user
@@ -88,4 +88,65 @@ services:
       - ./tmp/mysql_of_user:/var/lib/mysql
     ports:
       - "3406:3306"
+  outlet:
+    build: ./of_outlet
+    image: albertrandi72/of_outlet
+    container_name: outlet
+    restart: on-failure
+    volumes:
+      - "./of_outlet:/var/www/html"
+    ports:
+      - "1501:80"
 
+  outlet-db:
+    image: mysql:5
+    container_name: db_outlet
+    environment:
+      - MYSQL_DATABASE=outlet
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./tmp/db_outlet:/var/lib/mysql
+    ports:
+      - "3416:3306"
+
+  menu:
+    build: ./of_outlet
+    image: albertrandi72/of_menu
+    container_name: menu
+    restart: on-failure
+    volumes:
+      - "./of_menu:/var/www/html"
+    ports:
+      - "1502:80"
+
+  menu-db:
+    image: mysql:5
+    container_name: db_menu
+    environment:
+      - MYSQL_DATABASE=menu
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./tmp/db_menu:/var/lib/mysql
+    ports:
+      - "3426:3306"
+
+  order:
+    build: ./of_order
+    image: albertrandi72/of_order
+    container_name: order
+    restart: on-failure
+    volumes:
+      - "./of_order:/var/www/html"
+    ports:
+      - "1503:80"
+
+  order-db:
+    image: mysql:5
+    container_name: db_order
+    environment:
+      - MYSQL_DATABASE=order
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./tmp/db_order:/var/lib/mysql
+    ports:
+      - "3436:3306"
