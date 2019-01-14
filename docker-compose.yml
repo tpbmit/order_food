@@ -129,6 +129,6 @@ services:
       - MYSQL_DATABASE=order
       - MYSQL_ROOT_PASSWORD=root
     volumes:
-      - ./tmp/db_menu:/var/lib/mysql
+      - ./tmp/db_order:/var/lib/mysql
     ports:
-      - "3426:3306"
+      - "3436:3306"
