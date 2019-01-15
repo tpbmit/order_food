@@ -16,7 +16,6 @@ services:
       HEAP_NEWSIZE: 128M
     ports:
       - "9042:9042"
-      
   kong:
     image: kong:latest
     container_name: kong
@@ -36,7 +35,6 @@ services:
       - "8443:8443"
       - "8444:8444"
     restart: on-failure
-
   konga-database:
     image: mysql:5
     container_name: konga-db
@@ -53,7 +51,6 @@ services:
     restart: on-failure
     ports:
       - "3316:3306"
-
   konga:
     image: pantsel/konga
     container_name: konga
@@ -72,28 +69,25 @@ services:
     ports:
       - "1337:1337"
     restart: on-failure
-
-  of_user:
+  user:
     build: ./of_user
     image: tpbmit/of_user
-    container_name: of_user
+    container_name: user
     restart: on-failure
     volumes: 
       - ./of_user:/var/www/html
     ports:
       - "1500:80"
-
-  of_user-db:
+  user-db:
     image: mysql:5
     container_name: db_user
     environment:
       - MYSQL_DATABASE=user
       - MYSQL_ROOT_PASSWORD=root
     volumes:
-      - ./tmp/mysql_of_user:/var/lib/mysql
+      - ./tmp/db_user:/var/lib/mysql
     ports:
       - "3406:3306"
-
   outlet:
     build: ./of_outlet
     image: albertrandi72/of_outlet
